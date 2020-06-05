@@ -1,5 +1,5 @@
 export default {
   isAuthenticated (state) {
-    return state.currentUser.email !== undefined
+    return state.currentUser.role !== 'guest'
   }
 }

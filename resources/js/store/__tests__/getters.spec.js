@@ -3,14 +3,14 @@ import getters from '../getters'
 describe('getters', () => {
   test('isAuthenticated returns true if there is current user', () => {
     const state = {
-      currentUser: { email: 'jonh.doe@example.com' }
+      currentUser: { role: 'student' }
     }
     expect(getters.isAuthenticated(state)).toBe(true)
   })
 
   test('isAuthenticated returns true if there is no current user', () => {
     const state = {
-      currentUser: {}
+      currentUser: { role: 'guest' }
     }
     expect(getters.isAuthenticated(state)).toBe(false)
   })

@@ -3,7 +3,9 @@ import mutations from './mutations'
 import getters from './getters'
 
 const state = {
-  currentUser: {}
+  currentUser: {
+    role: 'guest'
+  }
 }
 
 export default {

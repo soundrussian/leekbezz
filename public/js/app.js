@@ -35879,14 +35879,23 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************!*\
   !*** ./resources/js/api/api.js ***!
   \*********************************/
-/*! exports provided: default */
+/*! exports provided: fetchCurrentUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ({
-  fetchCurrentUser: function fetchCurrentUser() {}
-});
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCurrentUser", function() { return fetchCurrentUser; });
+function fetchCurrentUser() {
+  return new Promise(function (resolve) {
+    window.axios.get('/api/user').then(function (resp) {
+      return resolve(resp);
+    })["catch"](function () {
+      return resolve({
+        role: 'guest'
+      });
+    });
+  });
+}
 
 /***/ }),
 
@@ -35918,6 +35927,9 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store(store_store_c
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   // eslint-disable-line no-unused-vars
   el: '#app',
+  created: function created() {
+    this.$store.dispatch('fetchCurrentUser');
+  },
   render: function render(h) {
     return h(App_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
   },
@@ -36014,7 +36026,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   fetchCurrentUser: function fetchCurrentUser(_ref) {
     var commit = _ref.commit;
-    return Object(api_api__WEBPACK_IMPORTED_MODULE_0__["default"])().then(function (user) {
+    return Object(api_api__WEBPACK_IMPORTED_MODULE_0__["fetchCurrentUser"])().then(function (user) {
       return commit('setCurrentUser', {
         user: user
       });
@@ -36035,7 +36047,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   isAuthenticated: function isAuthenticated(state) {
-    return state.currentUser.email !== undefined;
+    return state.currentUser.role !== 'guest';
   }
 });
 
@@ -36075,7 +36087,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = {
-  currentUser: {}
+  currentUser: {
+    role: 'guest'
+  }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
