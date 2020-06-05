@@ -13,8 +13,6 @@
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <div id="app">
-            <example-component/>
-        </div>
+        <div id="app" />
     </body>
 </html>
