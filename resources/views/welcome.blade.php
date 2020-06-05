@@ -5,8 +5,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>LeekBezz</title>
+
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+
+        <!-- Styles -->
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
     <body>
-        <h1>LeekBezz</h1>
+        <div id="app">
+            <example-component/>
+        </div>
     </body>
 </html>
