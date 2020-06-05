@@ -10,11 +10,16 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "test": "npm run lint && npm run test:unit",
         "test:unit": "jest",
+        "tdd": "npm run test:unit -- --watch --notify",
         "lint": "eslint --ext vue,js resources/js",
         "lint:fix": "npm run lint --fix"
     },
     "devDependencies": {
+        "@babel/preset-env": "^7.10.2",
+        "@vue/test-utils": "^1.0.3",
         "axios": "^0.19",
+        "babel-core": "^6.26.3",
+        "babel-jest": "^26.0.1",
         "cross-env": "^7.0",
         "eslint": "^7.1.0",
         "eslint-config-standard": "^14.1.1",
@@ -31,6 +36,17 @@
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
         "vue": "^2.5.17",
+        "vue-jest": "^3.0.5",
         "vue-template-compiler": "^2.6.10"
+    },
+    "jest": {
+        "verbose": true,
+        "roots": [
+            "<rootDir>/resources/js/"
+        ],
+        "transform": {
+            "^.+\\.js$": "babel-jest",
+            "^.+\\.vue$": "vue-jest"
+        }
     }
 }
