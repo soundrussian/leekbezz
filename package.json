@@ -37,6 +37,7 @@
         "sass-loader": "^8.0.0",
         "vue": "^2.5.17",
         "vue-jest": "^3.0.5",
+        "vue-router": "^3.3.2",
         "vue-template-compiler": "^2.6.10"
     },
     "jest": {
@@ -47,6 +48,10 @@
         "transform": {
             "^.+\\.js$": "babel-jest",
             "^.+\\.vue$": "vue-jest"
-        }
+        },
+        "moduleDirectories": [
+            "node_modules",
+            "<rootDir>/resources/js/"
+        ]
     }
 }
