@@ -10,6 +10,9 @@ const store = new Vuex.Store(storeConfig)
 
 const app = new Vue({ // eslint-disable-line no-unused-vars
   el: '#app',
+  created () {
+    this.$store.dispatch('fetchCurrentUser')
+  },
   render: h => h(App),
   router: Router,
   store
