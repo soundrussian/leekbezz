@@ -9,7 +9,9 @@ jest.mock('components/CurrentUser.vue', () => ({
 
 describe('TheNavbar.vue', () => {
   it('renders CurrentUser component', () => {
-    const wrapper = mount(TheNavbar)
+    const wrapper = mount(TheNavbar, {
+      stubs: ['router-link']
+    })
     expect(wrapper.findComponent(CurrentUser).exists()).toBe(true)
   })
 })

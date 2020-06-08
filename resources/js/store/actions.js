@@ -12,6 +12,9 @@ export default {
   login ({ commit }, credentials) {
     return login(credentials)
       .then(user => commit('setCurrentUser', { user }))
-      .catch(() => commit('setCurrentUser', { user: blankUser }))
+      .catch((error) => {
+        commit('setCurrentUser', { user: blankUser })
+        return Promise.reject(error)
+      })
   }
 }

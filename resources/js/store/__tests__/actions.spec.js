@@ -59,7 +59,7 @@ describe('actions', () => {
       const context = {
         commit: jest.fn()
       }
-      actions.login(context, {})
+      actions.login(context, {}).catch(() => {})
       await flushPromises()
       expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: blankUser })
     })
