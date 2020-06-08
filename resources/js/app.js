@@ -3,7 +3,10 @@ import Vuex from 'vuex'
 import App from 'App.vue'
 import Router from 'router'
 import storeConfig from 'store/store-config'
-require('bootstrap')
+import HTTP from './http-common'
+// require('bootstrap')
+
+Vue.prototype.$http = HTTP
 
 Vue.use(Vuex)
 const store = new Vuex.Store(storeConfig)
