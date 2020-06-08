@@ -36049,6 +36049,7 @@ function fetchCurrentUser() {
       return resolve(resp);
     })["catch"](function () {
       return resolve({
+        username: '',
         role: 'guest'
       });
     });
