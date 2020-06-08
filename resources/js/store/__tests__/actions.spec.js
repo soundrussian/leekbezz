@@ -2,6 +2,8 @@ import actions from '../actions'
 import { fetchCurrentUser, login } from 'api/api'
 import flushPromises from 'flush-promises'
 
+const blankUser = { username: '', role: 'guest' }
+
 jest.mock('api/api')
 
 describe('actions', () => {
@@ -30,7 +32,7 @@ describe('actions', () => {
       }
       actions.fetchCurrentUser(context)
       await flushPromises()
-      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: actions.blankUser })
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: blankUser })
     })
   })
 
@@ -59,7 +61,7 @@ describe('actions', () => {
       }
       actions.login(context, {})
       await flushPromises()
-      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: actions.blankUser })
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: blankUser })
     })
   })
 })

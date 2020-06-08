@@ -3,8 +3,6 @@ import { fetchCurrentUser, login } from 'api/api'
 const blankUser = { username: '', role: 'guest' }
 
 export default {
-  blankUser,
-
   fetchCurrentUser ({ commit }) {
     return fetchCurrentUser()
       .then(user => commit('setCurrentUser', { user }))
