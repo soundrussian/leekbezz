@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isAuthenticated">
-      <span>{{ currentUser.username }}</span>
+      <span>{{ currentUser.name }}</span>
       Logout
     </div>
     <div v-else>
