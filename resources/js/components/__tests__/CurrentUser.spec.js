@@ -1,9 +1,11 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Router from 'vue-router'
 import Vuex from 'vuex'
 import CurrentUser from 'components/CurrentUser.vue'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
+localVue.use(Router)
 
 
 describe('CurrentUser.vue', () => {

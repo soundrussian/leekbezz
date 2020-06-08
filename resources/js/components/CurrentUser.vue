@@ -5,7 +5,12 @@
       Logout
     </div>
     <div v-else>
-      Register | Login
+      <router-link to="/register">
+        Register
+      </router-link>
+      <router-link to="/login">
+        Login
+      </router-link>
     </div>
   </div>
 </template>
