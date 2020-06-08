@@ -8,7 +8,7 @@ describe('getters', () => {
     expect(getters.isAuthenticated(state)).toBe(true)
   })
 
-  test('isAuthenticated returns true if there is no current user', () => {
+  test('isAuthenticated returns false if there is no current user', () => {
     const state = {
       currentUser: { role: 'guest' }
     }
