@@ -4,6 +4,7 @@ import getters from './getters'
 
 const state = {
   currentUser: {
+    username: '',
     role: 'guest'
   }
 }
