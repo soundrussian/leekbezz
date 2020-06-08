@@ -8,7 +8,7 @@
       <router-link to="/register">
         Register
       </router-link>
-      <router-link to="/login">
+      <router-link :to="{ name: 'Login' }">
         Login
       </router-link>
     </div>
