@@ -35,7 +35,7 @@ describe('api', () => {
   describe('login', () => {
     beforeEach(() => {
       // mock request to /sanctum/csrf-cookie
-      moxios.stubRequest('/sanctum/csrf-cookie', () => {
+      moxios.stubRequest('/sanctum/csrf-cookie', {
         status: 200
       })
     })
