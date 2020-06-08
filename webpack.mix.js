@@ -31,4 +31,10 @@ mix.webpackConfig({
 })
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+  .postCss('resources/css/main.css', 'public/css', [
+    require('tailwindcss')
+  ])
+  .browserSync({
+    proxy: 'leekbezz.test',
+    notify: false
+  })
