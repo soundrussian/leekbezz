@@ -20,6 +20,8 @@
         "axios": "^0.19",
         "babel-core": "^7.0.0-bridge.0",
         "babel-jest": "^26.0.1",
+        "browser-sync": "^2.26.7",
+        "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^7.0",
         "eslint": "^7.1.0",
         "eslint-config-standard": "^14.1.1",
@@ -62,5 +64,8 @@
             "json",
             "vue"
         ]
+    },
+    "dependencies": {
+        "tailwindcss": "^1.4.6"
     }
 }

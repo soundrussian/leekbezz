@@ -10,9 +10,9 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
 
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     </head>
-    <body>
+    <body class="text-blue-grey-900 bg-blue-grey-050 border-t-4 border-purple-700">
         <div id="app" />
     </body>
 </html>
