@@ -1,13 +1,14 @@
+import HTTP from 'http-common'
 import moxios from 'moxios'
 import { fetchCurrentUser } from '../api'
 
 describe('api', () => {
   beforeEach(() => {
-    moxios.install()
+    moxios.install(HTTP)
   })
 
   afterEach(() => {
-    moxios.uninstall()
+    moxios.uninstall(HTTP)
   })
 
   describe('fetchCurrentUser', () => {
