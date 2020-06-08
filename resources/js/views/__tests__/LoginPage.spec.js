@@ -29,7 +29,7 @@ describe('LoginPage.vue', () => {
     store = new Vuex.Store(storeOptions)
   })
 
-  function subject() {
+  function subject () {
     router = new Router({ routes })
     router.push('/login')
 
