@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto bg-white m-4 w-11/12 p-4 rounded shadow sm:w-1/2 sm:my-4 sm:border sm:border-purple-100">
+  <div class="container mx-auto bg-white m-4 w-11/12 p-4 rounded shadow sm:w-1/2 sm:my-4">
     <form @submit.prevent="login">
       <h1 class="text-xl">
         Log In
@@ -74,6 +74,7 @@ export default {
   },
   methods: {
     login () {
+      this.isLoading = true
       this.errors = {}
       this.$store.dispatch('login', {
         email: this.email,
@@ -88,6 +89,9 @@ export default {
         })
         .catch((error) => {
           this.errors = error.response.data.errors
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     }
   }

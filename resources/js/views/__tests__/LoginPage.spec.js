@@ -2,6 +2,7 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Router from 'vue-router'
 import routes from 'routes'
+import flushPromises from 'flush-promises'
 import LoginPage from '../LoginPage'
 
 const localVue = createLocalVue()
@@ -44,14 +45,13 @@ describe('LoginPage.vue', () => {
     emailInput.setValue(email)
     passwordInput.setValue(password)
 
-    wrapper.find('button').trigger('submit')
-
     return wrapper
   }
 
   it('dispatches login action on submit', () => {
     store.dispatch = jest.fn(() => Promise.resolve())
-    subject()
+    const wrapper = subject()
+    wrapper.find('button').trigger('submit')
     expect(store.dispatch).toHaveBeenCalledWith('login', { email, password })
   })
 
@@ -61,8 +61,29 @@ describe('LoginPage.vue', () => {
       return Promise.resolve()
     })
     const wrapper = subject()
+    wrapper.find('button').trigger('submit')
     await wrapper.vm.$nextTick()
     expect(router.currentRoute.fullPath).toEqual('/')
+  })
+
+  it('shows spinner while action is dispatched', async () => {
+    store.dispatch = jest.fn(async () => {
+      await wrapper.vm.$nextTick()
+      store.getters = { isAuthenticated: () => true }
+      expect(wrapper.find('button > svg').exists()).toEqual(true)
+      expect(wrapper.find('button').element.disabled).toEqual(true)
+      return Promise.resolve()
+    })
+
+    const wrapper = subject()
+    expect(wrapper.find('button > svg').exists()).toEqual(false)
+    expect(wrapper.find('button').element.disabled).toEqual(false)
+    wrapper.find('button').trigger('submit')
+
+    await flushPromises()
+    await wrapper.vm.$nextTick()
+    expect(wrapper.find('button > svg').exists()).toBe(false)
+    expect(wrapper.find('button').element.disabled).toEqual(false)
   })
 
   it('renders errors if not authenticated, and stays on the page', async () => {
@@ -80,6 +101,7 @@ describe('LoginPage.vue', () => {
       return Promise.reject(error)
     })
     const wrapper = subject()
+    wrapper.find('button').trigger('submit')
     await wrapper.vm.$nextTick()
     expect(router.currentRoute.fullPath).toEqual('/login')
     expect(wrapper.text()).toContain(errorMessage)
