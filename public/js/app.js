@@ -1953,6 +1953,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['currentUser'])), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['isAuthenticated']))
@@ -19615,7 +19620,19 @@ var render = function() {
           _c("span", [_vm._v(_vm._s(_vm.currentUser.username))]),
           _vm._v("\n    Logout\n  ")
         ])
-      : _c("div", [_vm._v("\n    Register | Login\n  ")])
+      : _c(
+          "div",
+          [
+            _c("router-link", { attrs: { to: "/register" } }, [
+              _vm._v("\n      Register\n    ")
+            ]),
+            _vm._v(" "),
+            _c("router-link", { attrs: { to: "/login" } }, [
+              _vm._v("\n      Login\n    ")
+            ])
+          ],
+          1
+        )
   ])
 }
 var staticRenderFns = []
@@ -36043,10 +36060,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCurrentUser", function() { return fetchCurrentUser; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 function fetchCurrentUser() {
   return new Promise(function (resolve) {
-    window.axios.get('/api/user').then(function (resp) {
-      return resolve(resp);
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/user').then(function (resp) {
+      return resolve(resp.data);
     })["catch"](function () {
       return resolve({
         username: '',
@@ -36112,8 +36133,6 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
