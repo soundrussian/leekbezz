@@ -19,7 +19,7 @@ describe('actions', () => {
     expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user })
   })
 
-  test('login sets current user', async() => {
+  test('login sets current user', async () => {
     expect.assertions(1)
     const user = { email: 'john.doe@example.com' }
     login.mockImplementationOnce(() => {
