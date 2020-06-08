@@ -2,7 +2,7 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import App from 'App.vue'
 import VueRouter from 'vue-router'
 import LandingPage from 'views/LandingPage.vue'
-import AppNabar from 'components/AppNavbar.vue'
+import AppNabar from 'components/TheNavbar.vue'
 import routes from 'routes.js'
 
 const localVue = createLocalVue()
@@ -13,7 +13,7 @@ jest.mock('views/LandingPage.vue', () => ({
   render: h => h('div')
 }))
 
-jest.mock('components/AppNavbar.vue', () => ({
+jest.mock('components/TheNavbar.vue', () => ({
   name: 'NavBar',
   render: h => h('div')
 }))
