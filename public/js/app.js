@@ -19627,7 +19627,7 @@ var render = function() {
               _vm._v("\n      Register\n    ")
             ]),
             _vm._v(" "),
-            _c("router-link", { attrs: { to: "/login" } }, [
+            _c("router-link", { attrs: { to: { name: "Login" } } }, [
               _vm._v("\n      Login\n    ")
             ])
           ],
@@ -36349,9 +36349,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ([{
   path: '/',
+  name: 'Home',
   component: views_LandingPage_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
 }, {
   path: '/login',
+  name: 'Login',
   component: views_LoginPage__WEBPACK_IMPORTED_MODULE_1__["default"]
 }]);
 
