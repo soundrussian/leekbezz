@@ -50,13 +50,14 @@ describe('api', () => {
       return expect(login({})).resolves.toEqual(expected)
     })
 
-    it('resolves with empty guest user if request unsuccessful', () => {
-      const expected = { username: '', role: 'guest' }
+    it('rejects with errors if request unsuccessful', () => {
+      const expected = { errors: { email : ['Invalid credentials'] } }
       moxios.stubRequest('/api/login', {
-        status: 401
+        status: 401,
+        response: expected
       })
 
-      return expect(login({})).resolves.toEqual(expected)
+      return expect(login({})).rejects.toEqual(expected)
     })
   })
 })
