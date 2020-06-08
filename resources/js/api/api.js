@@ -1,12 +1,10 @@
 import HTTP from 'http-common'
 
-const blankUser = { username: '', role: 'guest' }
-
 export function fetchCurrentUser () {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     HTTP.get('/api/user')
       .then((resp) => resolve(resp.data))
-      .catch(() => resolve(blankUser))
+      .catch((error) => reject(error))
   })
 }
 
@@ -15,9 +13,7 @@ export function login (credentials) {
     HTTP.get('/sanctum/csrf-cookie').then(() => {
       HTTP.post('/api/login', credentials)
         .then((resp) => resolve(resp.data))
-        .catch((error) => {
-          reject(error.response.data)
-        })
+        .catch((error) => reject(error))
     })
   })
 }

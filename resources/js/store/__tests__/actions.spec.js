@@ -5,31 +5,61 @@ import flushPromises from 'flush-promises'
 jest.mock('api/api')
 
 describe('actions', () => {
-  test('fetchCurrentUser calls commit with the result of the HTTP request', async () => {
-    expect.assertions(1)
-    const user = { email: 'john.doe@example.com' }
-    fetchCurrentUser.mockImplementationOnce(() => {
-      return Promise.resolve(user)
+  describe('fetchCurrentUser', () => {
+    test('fetchCurrentUser calls commit with the result of the HTTP request', async () => {
+      expect.assertions(1)
+      const user = { email: 'john.doe@example.com' }
+      fetchCurrentUser.mockImplementationOnce(() => {
+        return Promise.resolve(user)
+      })
+      const context = {
+        commit: jest.fn()
+      }
+      actions.fetchCurrentUser(context)
+      await flushPromises()
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user })
     })
-    const context = {
-      commit: jest.fn()
-    }
-    actions.fetchCurrentUser(context)
-    await flushPromises()
-    expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user })
+
+    test('unsuccessful fetch sets blankUser', async () => {
+      expect.assertions(1)
+      fetchCurrentUser.mockImplementationOnce(() => {
+        return Promise.reject(new Error('unauthenticated'))
+      })
+      const context = {
+        commit: jest.fn()
+      }
+      actions.fetchCurrentUser(context)
+      await flushPromises()
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: actions.blankUser })
+    })
   })
 
-  test('login sets current user', async () => {
-    expect.assertions(1)
-    const user = { email: 'john.doe@example.com' }
-    login.mockImplementationOnce(() => {
-      return Promise.resolve(user)
+  describe('login', () => {
+    test('login sets current user', async () => {
+      expect.assertions(1)
+      const user = { email: 'john.doe@example.com' }
+      login.mockImplementationOnce(() => {
+        return Promise.resolve(user)
+      })
+      const context = {
+        commit: jest.fn()
+      }
+      actions.login(context, {})
+      await flushPromises()
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user })
     })
-    const context = {
-      commit: jest.fn()
-    }
-    actions.login(context, {})
-    await flushPromises()
-    expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user })
+
+    test('unsuccesful login sets blank user', async () => {
+      expect.assertions(1)
+      login.mockImplementationOnce(() => {
+        return Promise.reject(new Error('unauthenticated'))
+      })
+      const context = {
+        commit: jest.fn()
+      }
+      actions.login(context, {})
+      await flushPromises()
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: actions.blankUser })
+    })
   })
 })

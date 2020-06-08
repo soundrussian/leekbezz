@@ -22,13 +22,14 @@ describe('api', () => {
       return expect(fetchCurrentUser()).resolves.toBe(expected)
     })
 
-    it('resolves with empty guest user if request unsuccessful', () => {
-      const expected = { username: '', role: 'guest' }
+    it('rejects if request unsuccessful', () => {
+      const expected = { message: 'Unauthenticated.' }
       moxios.stubRequest('/api/user', {
-        status: 401
+        status: 401,
+        response: expected
       })
 
-      return expect(fetchCurrentUser()).resolves.toEqual(expected)
+      return expect(fetchCurrentUser()).rejects.toMatchObject({ response: { data: expected } })
     })
   })
 
@@ -57,7 +58,7 @@ describe('api', () => {
         response: expected
       })
 
-      return expect(login({})).rejects.toEqual(expected)
+      return expect(login({})).rejects.toMatchObject({ response: { data: expected } })
     })
   })
 })
