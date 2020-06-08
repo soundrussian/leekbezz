@@ -15,7 +15,7 @@ describe('CurrentUser.vue', () => {
     storeOptions = {
       state: {
         currentUser: {
-          username: 'John Doe'
+          name: 'John Doe'
         }
       },
       getters: {
