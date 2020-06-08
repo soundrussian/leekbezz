@@ -1,7 +1,11 @@
+import axios from 'axios'
+
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
+
 export function fetchCurrentUser () {
   return new Promise((resolve) => {
-    window.axios.get('/api/user')
-      .then((resp) => resolve(resp))
-      .catch(() => resolve({ role: 'guest' }))
+    axios.get('/api/user')
+      .then((resp) => resolve(resp.data))
+      .catch(() => resolve({ username: '', role: 'guest' }))
   })
 }
