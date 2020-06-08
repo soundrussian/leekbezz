@@ -14,6 +14,7 @@ const password = 'password'
 describe('LoginPage.vue', () => {
   let storeOptions
   let store
+  let router
 
   beforeEach(() => {
     storeOptions = {
@@ -28,24 +29,8 @@ describe('LoginPage.vue', () => {
     store = new Vuex.Store(storeOptions)
   })
 
-  it('dispatches login action on submit', () => {
-    const wrapper = shallowMount(LoginPage, {
-      localVue,
-      store
-    })
-
-    const emailInput = wrapper.find('input[type="email"]')
-    const passwordInput = wrapper.find('input[type="password"]')
-    emailInput.setValue(email)
-    passwordInput.setValue(password)
-
-    store.dispatch = jest.fn(() => Promise.resolve())
-    wrapper.find('button').trigger('submit')
-    expect(store.dispatch).toHaveBeenCalledWith('login', { email, password })
-  })
-
-  it('redirects to Home if login is successful', async () => {
-    const router = new Router({ routes })
+  function subject() {
+    router = new Router({ routes })
     router.push('/login')
 
     const wrapper = shallowMount(LoginPage, {
@@ -59,45 +44,44 @@ describe('LoginPage.vue', () => {
     emailInput.setValue(email)
     passwordInput.setValue(password)
 
+    wrapper.find('button').trigger('submit')
+
+    return wrapper
+  }
+
+  it('dispatches login action on submit', () => {
+    store.dispatch = jest.fn(() => Promise.resolve())
+    subject()
+    expect(store.dispatch).toHaveBeenCalledWith('login', { email, password })
+  })
+
+  it('redirects to Home if login is successful', async () => {
     store.dispatch = jest.fn(() => {
       store.getters = { isAuthenticated: () => true }
       return Promise.resolve()
     })
-    wrapper.find('button').trigger('submit')
+    const wrapper = subject()
     await wrapper.vm.$nextTick()
     expect(router.currentRoute.fullPath).toEqual('/')
   })
 
   it('renders errors if not authenticated, and stays on the page', async () => {
-    const router = new Router({ routes })
-    router.push('/login')
-
-    const wrapper = shallowMount(LoginPage, {
-      localVue,
-      store,
-      router
-    })
-
-    const emailInput = wrapper.find('input[type="email"]')
-    const passwordInput = wrapper.find('input[type="password"]')
-    emailInput.setValue(email)
-    passwordInput.setValue(password)
-
+    const errorMessage = 'These credentials do not match our records.'
     store.dispatch = jest.fn(() => {
       store.getters = { isAuthenticated: () => false }
       const error = new Error('422 error')
       error.response = {
         data: {
           errors: {
-            email: ['These credentials do not match our records.']
+            email: [errorMessage]
           }
         }
       }
       return Promise.reject(error)
     })
-    wrapper.find('button').trigger('submit')
+    const wrapper = subject()
     await wrapper.vm.$nextTick()
     expect(router.currentRoute.fullPath).toEqual('/login')
-    expect(wrapper.text()).toContain('These credentials do not match our records.')
+    expect(wrapper.text()).toContain(errorMessage)
   })
 })
