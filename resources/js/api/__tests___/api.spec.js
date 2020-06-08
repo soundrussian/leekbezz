@@ -51,7 +51,7 @@ describe('api', () => {
     })
 
     it('rejects with errors if request unsuccessful', () => {
-      const expected = { errors: { email : ['Invalid credentials'] } }
+      const expected = { errors: { email: ['Invalid credentials'] } }
       moxios.stubRequest('/api/login', {
         status: 401,
         response: expected
