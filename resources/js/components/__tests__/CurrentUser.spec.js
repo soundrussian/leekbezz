@@ -7,7 +7,6 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 localVue.use(Router)
 
-
 describe('CurrentUser.vue', () => {
   let storeOptions
   let store

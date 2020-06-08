@@ -2,7 +2,8 @@ import { mount, createLocalVue } from '@vue/test-utils'
 import App from 'App.vue'
 import VueRouter from 'vue-router'
 import LandingPage from 'views/LandingPage.vue'
-import AppNabar from 'components/TheNavbar.vue'
+import LoginPage from 'views/LoginPage.vue'
+import TheNavbar from 'components/TheNavbar.vue'
 import routes from 'routes.js'
 
 const localVue = createLocalVue()
@@ -14,7 +15,12 @@ jest.mock('views/LandingPage.vue', () => ({
 }))
 
 jest.mock('components/TheNavbar.vue', () => ({
-  name: 'NavBar',
+  name: 'TheNavbar',
+  render: h => h('div')
+}))
+
+jest.mock('views/LoginPage.vue', () => ({
+  name: 'LoginPage',
   render: h => h('div')
 }))
 
@@ -26,10 +32,20 @@ describe('App.vue', () => {
     expect(wrapper.findComponent(LandingPage).exists()).toBe(true)
   })
 
+  it('renders LoginPage at /login route', async () => {
+    const router = new VueRouter({ routes })
+    const wrapper = mount(App, { localVue, router })
+
+    router.push('/login')
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findComponent(LoginPage).exists()).toBe(true)
+  })
+
   it('renders AppNavbar', () => {
     const router = new VueRouter({ routes })
     const wrapper = mount(App, { localVue, router })
 
-    expect(wrapper.findComponent(AppNabar).exists()).toBe(true)
+    expect(wrapper.findComponent(TheNavbar).exists()).toBe(true)
   })
 })
