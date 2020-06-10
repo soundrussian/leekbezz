@@ -1,5 +1,10 @@
 <template>
-  <a href="#" @click.prevent="logout">Log out</a>
+  <a
+    href="#"
+    @click.prevent="logout"
+  >
+    Log out
+  </a>
 </template>
 
 <script>
