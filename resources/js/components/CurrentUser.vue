@@ -2,7 +2,7 @@
   <div>
     <div v-if="isAuthenticated">
       <span class="hidden sm:block">{{ currentUser.name }}</span>
-      <a href="#">Logout</a>
+      <logout-button />
     </div>
     <div v-else>
       <router-link to="/register">
@@ -17,7 +17,12 @@
 
 <script>
 import { mapGetters, mapState } from 'vuex'
+import LogoutButton from 'components/LogoutButton'
+
 export default {
+  components: {
+    LogoutButton
+  },
   computed: {
     ...mapState([
       'currentUser'

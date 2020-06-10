@@ -1,5 +1,5 @@
 import actions from '../actions'
-import { fetchCurrentUser, login } from 'api/api'
+import { fetchCurrentUser, login, logout } from 'api/api'
 import flushPromises from 'flush-promises'
 
 const blankUser = { username: '', role: 'guest' }
@@ -60,6 +60,21 @@ describe('actions', () => {
         commit: jest.fn()
       }
       actions.login(context, {}).catch(() => {})
+      await flushPromises()
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: blankUser })
+    })
+  })
+
+  describe('logout', () => {
+    it('calls api logout and resets user', async () => {
+      expect.assertions(1)
+      logout.mockImplementationOnce(() => {
+        return Promise.resolve()
+      })
+      const context = {
+        commit: jest.fn()
+      }
+      actions.logout(context)
       await flushPromises()
       expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: blankUser })
     })

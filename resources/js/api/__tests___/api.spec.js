@@ -1,6 +1,6 @@
 import HTTP from 'http-common'
 import moxios from 'moxios'
-import { fetchCurrentUser, login } from '../api'
+import { fetchCurrentUser, login, logout } from '../api'
 
 describe('api', () => {
   beforeEach(() => {
@@ -59,6 +59,24 @@ describe('api', () => {
       })
 
       return expect(login({})).rejects.toMatchObject({ response: { data: expected } })
+    })
+  })
+
+  describe('logout', () => {
+    it('it resolves if request is successful', () => {
+      moxios.stubRequest('/api/logout', {
+        status: 204
+      })
+
+      return expect(logout()).resolves.toEqual('Logged out')
+    })
+
+    it('it rejects if failed to logout', () => {
+      moxios.stubRequest('/api/logout', {
+        status: 500
+      })
+
+      return expect(logout()).rejects.toMatchObject({ message: 'Failed to log out' })
     })
   })
 })
