@@ -86,6 +86,14 @@ describe('LoginPage.vue', () => {
     expect(wrapper.find('button').element.disabled).toEqual(false)
   })
 
+  it('does nothing if loading', () => {
+    store.dispatch = jest.fn(() => Promise.resolve())
+    const wrapper = subject()
+    wrapper.setData({ isLoading: true })
+    wrapper.find('button').trigger('submit')
+    expect(store.dispatch).not.toHaveBeenCalledWith('login', { email, password })
+  })
+
   it('renders errors if not authenticated, and stays on the page', async () => {
     const errorMessage = 'These credentials do not match our records.'
     store.dispatch = jest.fn(() => {
@@ -105,5 +113,25 @@ describe('LoginPage.vue', () => {
     await wrapper.vm.$nextTick()
     expect(router.currentRoute.fullPath).toEqual('/login')
     expect(wrapper.text()).toContain(errorMessage)
+  })
+
+  it('shows red border and error message if email error', async () => {
+    const errorMessage = 'These credentials do not match our records.'
+    const wrapper = subject()
+    wrapper.setData({ errors: { email: [errorMessage] } })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.text()).toContain(errorMessage)
+    const emailField = wrapper.find('input[type=email]')
+    expect(emailField.element.classList).toContain('border-red-500')
+  })
+
+  it('shows red border and error message if password error', async () => {
+    const errorMessage = 'Password is required.'
+    const wrapper = subject()
+    wrapper.setData({ errors: { password: [errorMessage] } })
+    await wrapper.vm.$nextTick()
+    expect(wrapper.text()).toContain(errorMessage)
+    const emailField = wrapper.find('input[type=password]')
+    expect(emailField.element.classList).toContain('border-red-500')
   })
 })
