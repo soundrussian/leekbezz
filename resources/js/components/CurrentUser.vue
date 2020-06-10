@@ -1,8 +1,8 @@
 <template>
   <div>
     <div v-if="isAuthenticated">
-      <span>{{ currentUser.name }}</span>
-      Logout
+      <span class="hidden sm:block">{{ currentUser.name }}</span>
+      <a href="#">Logout</a>
     </div>
     <div v-else>
       <router-link to="/register">
