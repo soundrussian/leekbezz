@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class LoginController extends \App\Http\Controllers\Controller {
+class SessionController extends \App\Http\Controllers\Controller {
     /**
      * Handle a login request to the application.
      *
