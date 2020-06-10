@@ -19,6 +19,8 @@ class LoginController extends \App\Http\Controllers\Controller {
         $this->validateLogin($request);
 
         if ($this->attemptLogin($request)) {
+            $request->session()->regenerate();
+
             return Auth::user();
         }
 
