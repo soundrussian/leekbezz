@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::namespace('Api')->group(function () {
-    Route::post('/login', 'LoginController@create');
-    Route::delete('/logout', 'LoginController@destroy');
+    Route::post('/login', 'SessionController@create');
+    Route::delete('/logout', 'SessionController@destroy');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
