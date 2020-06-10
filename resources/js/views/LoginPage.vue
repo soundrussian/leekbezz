@@ -5,34 +5,20 @@
         Log In
       </h1>
       <div class="my-4">
-        <input
+        <validatable-input
           v-model="email"
           type="email"
           name="email"
           placeholder="Email"
-          class="block w-full bg-blue-grey-050 my-2 p-2 rounded border-2  placeholder-grey-900 focus:border-blue-grey-100"
-          :class="{ 'border-red-500': hasEmailError, 'border-blue-grey-050': !hasEmailError }"
-        >
-        <div
-          v-if="hasEmailError"
-          class="text-sm text-red-500"
-        >
-          {{ emailError }}
-        </div>
-        <input
+          :errors="errors"
+        />
+        <validatable-input
           v-model="password"
           type="password"
           name="password"
-          placeholder="Password"
-          class="block w-full bg-blue-grey-050 my-2 p-2 rounded border-2 placeholder-grey-900 focus:border-blue-grey-100"
-          :class="{ 'border-red-500': hasPasswordError, 'border-blue-grey-050': !hasPasswordError }"
-        >
-        <div
-          v-if="hasPasswordError"
-          class="text-sm text-red-500"
-        >
-          {{ passwordError }}
-        </div>
+          placelholder="Password"
+          :errors="errors"
+        />
       </div>
       <div class="text-right">
         <button
@@ -57,8 +43,12 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import ValidatableInput from 'components/common/ValidatableInput.vue'
 
 export default {
+  components: {
+    ValidatableInput
+  },
   data () {
     return {
       email: '',
@@ -71,15 +61,6 @@ export default {
     ...mapGetters([
       'isAuthenticated'
     ]),
-    hasEmailError () {
-      return this.errors && this.errors.email && this.errors.email.length
-    },
-    emailError () {
-      if (this.errors && this.errors.email && this.errors.email.length) {
-        return this.errors.email.join(' ')
-      }
-      return ''
-    },
     hasPasswordError () {
       return this.errors && this.errors.password && this.errors.password.length
     },
@@ -88,7 +69,7 @@ export default {
         return this.errors.password.join(' ')
       }
       return ''
-    },
+    }
   },
   methods: {
     login () {

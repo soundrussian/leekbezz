@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Router from 'vue-router'
 import routes from 'routes'
@@ -34,7 +34,7 @@ describe('LoginPage.vue', () => {
     router = new Router({ routes })
     router.push('/login')
 
-    const wrapper = shallowMount(LoginPage, {
+    const wrapper = mount(LoginPage, {
       localVue,
       store,
       router
