@@ -4,27 +4,35 @@
       <h1 class="text-xl">
         Log In
       </h1>
-      <div
-        v-if="emailErrors"
-        class="bg-red-600 text-red-100 p-4 mt-2 text-sm"
-      >
-        {{ emailErrors }}
-      </div>
       <div class="my-4">
         <input
           v-model="email"
           type="email"
           name="email"
           placeholder="Email"
-          class="block w-full bg-blue-grey-050 my-2 p-2 rounded border-2 border-blue-grey-050 placeholder-grey-900 focus:border-blue-grey-100"
+          class="block w-full bg-blue-grey-050 my-2 p-2 rounded border-2  placeholder-grey-900 focus:border-blue-grey-100"
+          :class="{ 'border-red-500': hasEmailError, 'border-blue-grey-050': !hasEmailError }"
         >
+        <div
+          v-if="hasEmailError"
+          class="text-sm text-red-500"
+        >
+          {{ emailError }}
+        </div>
         <input
           v-model="password"
           type="password"
           name="password"
           placeholder="Password"
-          class="block w-full bg-blue-grey-050 my-2 p-2 rounded border-2 border-blue-grey-050 placeholder-grey-900 focus:border-blue-grey-100"
+          class="block w-full bg-blue-grey-050 my-2 p-2 rounded border-2 placeholder-grey-900 focus:border-blue-grey-100"
+          :class="{ 'border-red-500': hasPasswordError, 'border-blue-grey-050': !hasPasswordError }"
         >
+        <div
+          v-if="hasPasswordError"
+          class="text-sm text-red-500"
+        >
+          {{ passwordError }}
+        </div>
       </div>
       <div class="text-right">
         <button
@@ -48,7 +56,6 @@
 </template>
 
 <script>
-import _ from 'lodash'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -64,16 +71,30 @@ export default {
     ...mapGetters([
       'isAuthenticated'
     ]),
-    emailErrors () {
-      if (this.errors && Object.values(this.errors).length) {
-        return _.flatten(Object.values(this.errors)).join(' ')
-      } else {
-        return false
+    hasEmailError () {
+      return this.errors && this.errors.email && this.errors.email.length
+    },
+    emailError () {
+      if (this.errors && this.errors.email && this.errors.email.length) {
+        return this.errors.email.join(' ')
       }
-    }
+      return ''
+    },
+    hasPasswordError () {
+      return this.errors && this.errors.password && this.errors.password.length
+    },
+    passwordError () {
+      if (this.errors && this.errors.password && this.errors.password.length) {
+        return this.errors.password.join(' ')
+      }
+      return ''
+    },
   },
   methods: {
     login () {
+      if (this.isLoading) {
+        return
+      }
       this.isLoading = true
       this.errors = {}
       this.$store.dispatch('login', {
