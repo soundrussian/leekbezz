@@ -18,6 +18,8 @@ class LoginTest extends TestCase
         $response = $this->postJson('/api/login', [
             'email' => $user->email,
             'password' => 'password'
+        ], [
+            'Referer' => 'localhost' // We need to pass Referer to make sure Sanctum middleware starts a session
         ]);
 
         $response->assertStatus(200)
