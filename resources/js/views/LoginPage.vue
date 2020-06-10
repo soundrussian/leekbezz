@@ -60,16 +60,7 @@ export default {
   computed: {
     ...mapGetters([
       'isAuthenticated'
-    ]),
-    hasPasswordError () {
-      return this.errors && this.errors.password && this.errors.password.length
-    },
-    passwordError () {
-      if (this.errors && this.errors.password && this.errors.password.length) {
-        return this.errors.password.join(' ')
-      }
-      return ''
-    }
+    ])
   },
   methods: {
     login () {
