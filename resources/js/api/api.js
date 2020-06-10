@@ -17,3 +17,11 @@ export function login (credentials) {
     })
   })
 }
+
+export function logout () {
+  return new Promise((resolve, reject) => {
+    HTTP.delete('/api/logout')
+      .then(() => resolve('Logged out'))
+      .catch(() => reject(new Error('Failed to log out')))
+  })
+}

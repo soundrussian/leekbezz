@@ -2,6 +2,12 @@ import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Router from 'vue-router'
 import Vuex from 'vuex'
 import CurrentUser from 'components/CurrentUser.vue'
+import LogoutButton from 'components/LogoutButton.vue'
+
+jest.mock('components/LogoutButton.vue', () => ({
+  name: 'LogoutButton',
+  render: h => h('div')
+}))
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -46,7 +52,7 @@ describe('CurrentUser.vue', () => {
     })
 
     it('hides logout link', () => {
-      expect(subject().text()).not.toContain('Logout')
+      expect(subject().findComponent(LogoutButton).exists()).toBe(false)
     })
   })
 
@@ -56,7 +62,7 @@ describe('CurrentUser.vue', () => {
     })
 
     it('shows logout link', () => {
-      expect(subject().text()).toContain('Logout')
+      expect(subject().findComponent(LogoutButton).exists()).toBe(true)
     })
 
     it('shows current username', () => {
