@@ -51,6 +51,17 @@ class RegistrationTest extends TestCase
         });
     }
 
+    public function testCannotCreateWithRole()
+    {
+        $params = $this->validParams();
+        $params['role'] = 'admin';
+
+        $this->postJson('/api/users', $params);
+        $user = User::firstWhere('email', $params['email']);
+
+        $this->assertEquals('student', $user->role);
+    }
+
     public function testValidatesEmailPresence()
     {
         $params = $this->validParams();
