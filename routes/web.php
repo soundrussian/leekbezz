@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('mail', function () {
+    $user = App\User::all()->first();
+
+    return (new App\Notifications\ResetPasswordNotification('some-token'))
+        ->toMail($user);
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
