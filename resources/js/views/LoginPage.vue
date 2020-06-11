@@ -34,7 +34,7 @@
         </div>
       </form>
     </div>
-    <div class="text-center text-gray-500 text-sm">
+    <div class="text-center text-blue-grey-400 text-sm">
       Not a member? <router-link :to="{ name: 'Register' }">
         Sign up here
       </router-link>
