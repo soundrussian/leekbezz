@@ -2,6 +2,7 @@ import LandingPage from 'views/LandingPage.vue'
 import LoginPage from 'views/LoginPage'
 import RegistrationPage from 'views/RegistrationPage.vue'
 import RequestPasswordResetPage from 'views/RequestPasswordResetPage'
+import ResetPasswordPage from 'views/ResetPasswordPage.vue'
 
 export default [
   {
@@ -23,5 +24,10 @@ export default [
     path: '/forgot',
     name: 'RequestPasswordReset',
     component: RequestPasswordResetPage
+  },
+  {
+    path: '/forgot/:token',
+    name: 'ResetPassword',
+    component: ResetPasswordPage
   }
 ]
