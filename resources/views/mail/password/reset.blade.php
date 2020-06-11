@@ -5,7 +5,7 @@ Someone (hopefully, you) requested a password reset for your LeekBezz account.
 
 To set a new password, click the button:
 
-@component('mail::button', ['url' => $url])
+@component('mail::button', ['url' => url($url)])
     Reset password
 @endcomponent
 
