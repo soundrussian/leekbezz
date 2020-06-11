@@ -25,3 +25,18 @@ export function logout () {
       .catch(() => reject(new Error('Failed to log out')))
   })
 }
+
+export function register (params) {
+  const requestParams = {
+    email: params.email,
+    name: params.name,
+    password: params.password,
+    password_confirmation: params.passwordConfirmation
+  }
+
+  return new Promise((resolve, reject) => {
+    HTTP.post('/api/users', requestParams)
+      .then((resp) => resolve(resp.data))
+      .catch((error) => reject(error))
+  })
+}

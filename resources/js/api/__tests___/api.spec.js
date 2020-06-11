@@ -1,6 +1,6 @@
 import HTTP from 'http-common'
 import moxios from 'moxios'
-import { fetchCurrentUser, login, logout } from '../api'
+import { fetchCurrentUser, login, logout, register } from '../api'
 
 describe('api', () => {
   beforeEach(() => {
@@ -77,6 +77,49 @@ describe('api', () => {
       })
 
       return expect(logout()).rejects.toMatchObject({ message: 'Failed to log out' })
+    })
+  })
+
+  describe('register', () => {
+    it('resolves with user if registration is successful', () => {
+      const expected = { username: 'John Doe', role: 'student' }
+      moxios.stubRequest('/api/users', {
+        status: 200,
+        response: expected
+      })
+
+      return expect(register({})).resolves.toEqual(expected)
+    })
+
+    it('correctly prepares params', (done) => {
+      const params = {
+        name: 'John Doe',
+        email: 'john.doe@example.com',
+        password: 'password',
+        passwordConfirmation: 'password'
+      }
+      register(params)
+
+      moxios.wait(function () {
+        const request = moxios.requests.mostRecent()
+        expect(JSON.parse(request.config.data)).toEqual({
+          email: params.email,
+          name: params.name,
+          password: params.password,
+          password_confirmation: params.passwordConfirmation
+        })
+        done()
+      })
+    })
+
+    it('rejects with errors if request unsuccessful', () => {
+      const expected = { errors: { email: ['Invalid email'] } }
+      moxios.stubRequest('/api/users', {
+        status: 422,
+        response: expected
+      })
+
+      return expect(register({})).rejects.toMatchObject({ response: { data: expected } })
     })
   })
 })

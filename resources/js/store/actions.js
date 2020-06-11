@@ -1,4 +1,4 @@
-import { fetchCurrentUser, login, logout } from 'api/api'
+import { fetchCurrentUser, login, logout, register } from 'api/api'
 
 const blankUser = { username: '', role: 'guest' }
 
@@ -20,5 +20,14 @@ export default {
 
   logout ({ commit }) {
     return logout().finally(() => commit('setCurrentUser', { user: blankUser }))
+  },
+
+  register ({ commit }, params) {
+    return register(params)
+      .then(user => commit('setCurrentUser', { user }))
+      .catch((error) => {
+        commit('setCurrentUser', { user: blankUser })
+        return Promise.reject(error)
+      })
   }
 }

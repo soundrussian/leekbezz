@@ -1,5 +1,5 @@
 import actions from '../actions'
-import { fetchCurrentUser, login, logout } from 'api/api'
+import { fetchCurrentUser, login, logout, register } from 'api/api'
 import flushPromises from 'flush-promises'
 
 const blankUser = { username: '', role: 'guest' }
@@ -76,6 +76,30 @@ describe('actions', () => {
       }
       actions.logout(context)
       await flushPromises()
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: blankUser })
+    })
+  })
+
+  describe('register', () => {
+    it('calls api and sets user if successful', async () => {
+      const user = { email: 'john.doe@example.com' }
+      register.mockImplementationOnce(() => Promise.resolve(user))
+      const context = { commit: jest.fn() }
+
+      actions.register(context, user)
+      await flushPromises()
+
+      expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user })
+    })
+
+    it('calls api and sets blank if error', async () => {
+      const user = { email: 'john.doe@example.com' }
+      register.mockImplementationOnce(() => Promise.reject(new Error('invalid')))
+      const context = { commit: jest.fn() }
+
+      actions.register(context, user).catch(() => {})
+      await flushPromises()
+
       expect(context.commit).toHaveBeenCalledWith('setCurrentUser', { user: blankUser })
     })
   })
