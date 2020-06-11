@@ -1,4 +1,4 @@
-import { fetchCurrentUser, login, logout, register } from 'api/api'
+import { fetchCurrentUser, login, logout, register, requestPasswordReset } from 'api/api'
 
 const blankUser = { username: '', role: 'guest' }
 
@@ -29,5 +29,9 @@ export default {
         commit('setCurrentUser', { user: blankUser })
         return Promise.reject(error)
       })
+  },
+
+  requestPasswordReset (context, params) {
+    return requestPasswordReset(params)
   }
 }

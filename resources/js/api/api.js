@@ -40,3 +40,11 @@ export function register (params) {
       .catch((error) => reject(error))
   })
 }
+
+export function requestPasswordReset (params) {
+  return new Promise((resolve, reject) => {
+    HTTP.post('/api/forgot', params)
+      .then((resp) => resolve(resp.data))
+      .catch((error) => reject(error))
+  })
+}
