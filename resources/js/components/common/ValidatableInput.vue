@@ -6,14 +6,14 @@
       :type="type"
       :name="name"
       :placeholder="placeholder"
-      class="block w-full bg-gray-300 my-2 p-2 rounded-md border-2  placeholder-gray-600 focus:border-blue-grey-100"
-      :class="{ 'border-red-500': hasError, 'border-gray-300': !hasError }"
+      class="block w-full bg-blue-grey-100 my-2 p-2 rounded-md border-2  placeholder-blue-grey-600 focus:border-blue-grey-100"
+      :class="{ 'border-red-vivid-500': hasError, 'border-blue-grey-100': !hasError }"
       @input="$emit('input', $event.target.value)"
     >
     <div
       v-if="hasError"
       ref="error"
-      class="text-sm text-red-500"
+      class="text-sm text-red-vivid-500"
     >
       {{ errorText }}
     </div>
