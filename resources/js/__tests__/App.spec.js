@@ -3,6 +3,7 @@ import App from 'App.vue'
 import VueRouter from 'vue-router'
 import LandingPage from 'views/LandingPage.vue'
 import LoginPage from 'views/LoginPage.vue'
+import RegistrationPage from 'views/RegistrationPage.vue'
 import TheNavbar from 'components/TheNavbar.vue'
 import routes from 'routes.js'
 
@@ -24,6 +25,11 @@ jest.mock('views/LoginPage.vue', () => ({
   render: h => h('div')
 }))
 
+jest.mock('views/RegistrationPage.vue', () => ({
+  name: 'RegistrationPage',
+  render: h => h('div')
+}))
+
 describe('App.vue', () => {
   it('renders LangingPage at / route', () => {
     const router = new VueRouter({ routes })
@@ -40,6 +46,16 @@ describe('App.vue', () => {
     await wrapper.vm.$nextTick()
 
     expect(wrapper.findComponent(LoginPage).exists()).toBe(true)
+  })
+
+  it('renders RegistrationPage at /register route', async () => {
+    const router = new VueRouter({ routes })
+    const wrapper = mount(App, { localVue, router })
+
+    router.push('/register')
+    await wrapper.vm.$nextTick()
+
+    expect(wrapper.findComponent(RegistrationPage).exists()).toBe(true)
   })
 
   it('renders AppNavbar', () => {
