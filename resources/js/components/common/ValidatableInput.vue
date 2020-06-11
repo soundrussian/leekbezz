@@ -6,8 +6,8 @@
       :type="type"
       :name="name"
       :placeholder="placeholder"
-      class="block w-full bg-blue-grey-050 my-2 p-2 rounded border-2  placeholder-grey-900 focus:border-blue-grey-100"
-      :class="{ 'border-red-500': hasError, 'border-blue-grey-050': !hasError }"
+      class="block w-full bg-gray-300 my-2 p-2 rounded-md border-2  placeholder-gray-600 focus:border-blue-grey-100"
+      :class="{ 'border-red-500': hasError, 'border-gray-300': !hasError }"
       @input="$emit('input', $event.target.value)"
     >
     <div
