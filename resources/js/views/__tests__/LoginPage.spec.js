@@ -122,7 +122,7 @@ describe('LoginPage.vue', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.text()).toContain(errorMessage)
     const emailField = wrapper.find('input[type=email]')
-    expect(emailField.element.classList).toContain('border-red-500')
+    expect(emailField.element.classList).toContain('border-red-vivid-500')
   })
 
   it('shows red border and error message if password error', async () => {
@@ -132,6 +132,6 @@ describe('LoginPage.vue', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.text()).toContain(errorMessage)
     const emailField = wrapper.find('input[type=password]')
-    expect(emailField.element.classList).toContain('border-red-500')
+    expect(emailField.element.classList).toContain('border-red-vivid-500')
   })
 })

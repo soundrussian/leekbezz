@@ -30,7 +30,7 @@ describe('ValidatableInput.vue', () => {
     })
     const input = wrapper.findComponent({ ref: 'input' })
     const errorMessage = wrapper.findComponent({ ref: 'error' })
-    expect(input.element.classList).toContain('border-red-500')
+    expect(input.element.classList).toContain('border-red-vivid-500')
     expect(errorMessage.text()).toContain(errorText)
   })
 
@@ -49,7 +49,7 @@ describe('ValidatableInput.vue', () => {
     })
     const input = wrapper.findComponent({ ref: 'input' })
     const errorMessage = wrapper.findComponent({ ref: 'error' })
-    expect(input.element.classList).not.toContain('border-red-500')
+    expect(input.element.classList).not.toContain('border-red-vivid-500')
     expect(errorMessage.exists()).toBe(false)
   })
 
@@ -65,7 +65,7 @@ describe('ValidatableInput.vue', () => {
     })
     const input = wrapper.findComponent({ ref: 'input' })
     const errorMessage = wrapper.findComponent({ ref: 'error' })
-    expect(input.element.classList).not.toContain('border-red-500')
+    expect(input.element.classList).not.toContain('border-red-vivid-500')
     expect(errorMessage.exists()).toBe(false)
   })
 })
