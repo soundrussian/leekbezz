@@ -21,7 +21,12 @@
             :errors="errors"
           />
         </div>
-        <div class="text-right">
+        <div class="flex justify-between items-center">
+          <div class="text-sm">
+            <router-link :to="{ name: 'RequestPasswordReset' }">
+              Forgot password?
+            </router-link>
+          </div>
           <submit-button
             :loading="isLoading"
             text="Log In"
