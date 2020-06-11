@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-between p-4 bg-white">
+  <div class="flex justify-between p-4 bg-white border-b border-gray-300">
     <router-link
       to="/"
       class="font-bold"
