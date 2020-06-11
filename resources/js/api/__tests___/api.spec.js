@@ -1,6 +1,6 @@
 import HTTP from 'http-common'
 import moxios from 'moxios'
-import { fetchCurrentUser, login, logout, register, requestPasswordReset } from '../api'
+import { fetchCurrentUser, login, logout, register, requestPasswordReset, resetPassword } from '../api'
 
 describe('api', () => {
   beforeEach(() => {
@@ -142,6 +142,49 @@ describe('api', () => {
       })
 
       return expect(requestPasswordReset({})).rejects.toMatchObject({ response: { data: expected } })
+    })
+  })
+
+  describe('resetPassword', () => {
+    it('resolves with user if reset is successful', () => {
+      const expected = { username: 'John Doe', role: 'student' }
+      moxios.stubRequest('/api/forgot', {
+        status: 200,
+        response: expected
+      })
+
+      return expect(resetPassword({})).resolves.toEqual(expected)
+    })
+
+    it('correctly prepares params', (done) => {
+      const params = {
+        email: 'john.doe@example.com',
+        password: 'password',
+        passwordConfirmation: 'password',
+        token: 'example-token'
+      }
+      resetPassword(params)
+
+      moxios.wait(function () {
+        const request = moxios.requests.mostRecent()
+        expect(JSON.parse(request.config.data)).toEqual({
+          email: params.email,
+          password: params.password,
+          password_confirmation: params.passwordConfirmation,
+          token: params.token
+        })
+        done()
+      })
+    })
+
+    it('rejects with errors if request unsuccessful', () => {
+      const expected = { errors: { email: ['Invalid email'] } }
+      moxios.stubRequest('/api/forgot', {
+        status: 422,
+        response: expected
+      })
+
+      return expect(resetPassword({})).rejects.toMatchObject({ response: { data: expected } })
     })
   })
 })

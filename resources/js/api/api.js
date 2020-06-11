@@ -48,3 +48,18 @@ export function requestPasswordReset (params) {
       .catch((error) => reject(error))
   })
 }
+
+export function resetPassword (params) {
+  const requestParams = {
+    email: params.email,
+    password: params.password,
+    password_confirmation: params.passwordConfirmation,
+    token: params.token
+  }
+
+  return new Promise((resolve, reject) => {
+    HTTP.put('/api/forgot', requestParams)
+      .then((resp) => resolve(resp.data))
+      .catch((error) => reject(error))
+  })
+}
