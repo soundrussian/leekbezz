@@ -11,7 +11,6 @@ import routes from 'routes.js'
 const localVue = createLocalVue()
 localVue.use(VueRouter)
 
-
 jest.mock('views/LandingPage.vue', () => ({
   name: 'LandingPage',
   render: h => h('div')
