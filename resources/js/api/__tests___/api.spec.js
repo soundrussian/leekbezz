@@ -1,6 +1,6 @@
 import HTTP from 'http-common'
 import moxios from 'moxios'
-import { fetchCurrentUser, login, logout, register } from '../api'
+import { fetchCurrentUser, login, logout, register, requestPasswordReset } from '../api'
 
 describe('api', () => {
   beforeEach(() => {
@@ -120,6 +120,28 @@ describe('api', () => {
       })
 
       return expect(register({})).rejects.toMatchObject({ response: { data: expected } })
+    })
+  })
+
+  describe('requestPasswordReset', () => {
+    it('resolves with message if success', () => {
+      const message = 'expected message'
+      moxios.stubRequest('/api/forgot', {
+        status: 200,
+        response: { message }
+      })
+
+      return expect(requestPasswordReset({})).resolves.toEqual({ message })
+    })
+
+    it('rejects with errors if request unsuccessful', () => {
+      const expected = { errors: { email: ['Invalid email'] } }
+      moxios.stubRequest('/api/forgot', {
+        status: 422,
+        response: expected
+      })
+
+      return expect(requestPasswordReset({})).rejects.toMatchObject({ response: { data: expected } })
     })
   })
 })
