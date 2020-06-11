@@ -42,8 +42,7 @@ describe('App.vue', () => {
     const router = new VueRouter({ routes })
     const wrapper = mount(App, { localVue, router })
 
-    router.push('/login')
-    await wrapper.vm.$nextTick()
+    await router.push('/login')
 
     expect(wrapper.findComponent(LoginPage).exists()).toBe(true)
   })
@@ -52,8 +51,7 @@ describe('App.vue', () => {
     const router = new VueRouter({ routes })
     const wrapper = mount(App, { localVue, router })
 
-    router.push('/register')
-    await wrapper.vm.$nextTick()
+    await router.push('/register')
 
     expect(wrapper.findComponent(RegistrationPage).exists()).toBe(true)
   })
