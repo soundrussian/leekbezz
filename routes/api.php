@@ -21,6 +21,7 @@ Route::namespace('Api')->group(function () {
     Route::post('/users', 'UserController@store');
 
     Route::post('/forgot', 'PasswordResetController@store');
+    Route::put('/forgot', 'PasswordResetController@update');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
