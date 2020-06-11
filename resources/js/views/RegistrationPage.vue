@@ -46,7 +46,7 @@
     <div class="text-center text-gray-500 text-sm">
       Already a member? <router-link :to="{ name: 'Login' }">
         Sign in here
-      </router-link>.
+      </router-link>
     </div>
   </div>
 </template>
