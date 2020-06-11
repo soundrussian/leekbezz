@@ -5,6 +5,7 @@ import LandingPage from 'views/LandingPage.vue'
 import LoginPage from 'views/LoginPage.vue'
 import RegistrationPage from 'views/RegistrationPage.vue'
 import RequestPasswordResetPage from 'views/RequestPasswordResetPage.vue'
+import ResetPasswordPage from 'views/ResetPasswordPage.vue'
 import TheNavbar from 'components/TheNavbar.vue'
 import routes from 'routes.js'
 
@@ -32,6 +33,11 @@ jest.mock('views/RegistrationPage.vue', () => ({
 }))
 
 jest.mock('views/RequestPasswordResetPage.vue', () => ({
+  name: 'RequestPasswordReset',
+  render: h => h('div')
+}))
+
+jest.mock('views/ResetPasswordPage.vue', () => ({
   name: 'RequestPasswordReset',
   render: h => h('div')
 }))
@@ -69,6 +75,15 @@ describe('App.vue', () => {
     await router.push('/forgot')
 
     expect(wrapper.findComponent(RequestPasswordResetPage).exists()).toBe(true)
+  })
+
+  it('renders ResetPasswordPage at /forgot/:token route', async () => {
+    const router = new VueRouter({ routes })
+    const wrapper = mount(App, { localVue, router })
+
+    await router.push('/forgot/aabbcc')
+
+    expect(wrapper.findComponent(ResetPasswordPage).exists()).toBe(true)
   })
 
   it('renders AppNavbar', () => {
