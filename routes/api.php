@@ -19,8 +19,14 @@ Route::namespace('Api')->group(function () {
     Route::delete('/logout', 'SessionController@destroy');
 
     Route::post('/users', 'UserController@store');
+
+    Route::post('/forgot', 'PasswordResetController@store');
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::name('password.reset')->get('/reset-password/{token}', function() {
+    return view('welcome');
 });
