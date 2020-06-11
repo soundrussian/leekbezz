@@ -54,7 +54,7 @@ class ResetPasswordTest extends TestCase
 
         $this->putJson('/api/forgot', $params)
             ->assertSuccessful()
-            ->assertJson(['message' => 'Your password has been reset!']);
+            ->assertJson(['email' => $user->email]);
 
         $user->refresh();
 

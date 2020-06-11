@@ -64,7 +64,7 @@ class PasswordResetController extends \App\Http\Controllers\Controller  {
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         if ($response == Password::PASSWORD_RESET) {
-            return new JsonResponse(['message' => trans($response)], 200);
+            return Auth::user();
         } else {
             throw ValidationException::withMessages([
                 'email' => [trans($response)],
