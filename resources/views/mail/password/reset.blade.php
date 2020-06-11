@@ -9,6 +9,8 @@ To set a new password, click the button:
     Reset password
 @endcomponent
 
+This password reset link will expire in 60 minutes.
+
 If you do not want to change password, just ignore this message.
 
 Thanks,<br>
