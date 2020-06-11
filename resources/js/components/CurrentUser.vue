@@ -5,7 +5,7 @@
       <logout-button />
     </div>
     <div v-else>
-      <router-link to="/register">
+      <router-link :to="{ name: 'Register' }">
         Register
       </router-link>
       <router-link :to="{ name: 'Login' }">
