@@ -32,7 +32,7 @@
     <div class="text-center text-gray-500 text-sm">
       Not a member? <router-link :to="{ name: 'Register' }">
         Sign up here
-      </router-link>.
+      </router-link>
     </div>
   </div>
 </template>
